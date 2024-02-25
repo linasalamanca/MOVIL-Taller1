@@ -1,0 +1,27 @@
+[
+  {
+    "nombre": "machu_picchu",
+    "descripcion": "Antigua ciudad inca situada en los Andes peruanos. Conocida por su arquitectura única y vistas impresionantes.",
+    "categoria": "maravilla_del_mundo"
+  },
+  {
+    "nombre": "playa_de_copacabana",
+    "descripcion": "Famosa playa ubicada en Río de Janeiro, Brasil. Con arenas doradas y vibrante vida costera.",
+    "categoria": "playa"
+  },
+  {
+    "nombre": "monte_everest",
+    "descripcion": "La montaña más alta del mundo, parte de la cordillera del Himalaya. Desafío para alpinistas y vistas espectaculares.",
+    "categoria": "montaña"
+  },
+  {
+    "nombre": "roma",
+    "descripcion": "Capital de Italia, conocida por su historia antigua, arquitectura impresionante y el Coliseo.",
+    "categoria": "ciudad_histórica"
+  },
+  {
+    "nombre": "amazonía",
+    "descripcion": "Selva tropical más grande del mundo, hogar de una increíble biodiversidad. Perfecto para ecoturismo y aventuras.",
+    "categoria": "selva"
+  }
+]
