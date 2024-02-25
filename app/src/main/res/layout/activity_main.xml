@@ -6,45 +6,75 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity"
     android:padding="20dp"
-    android:background="@color/fondoVerde">
+    android:background="@color/fondo"
+    >
 
     <TextView
         android:id="@+id/Titulo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="App 1er Taller"
-        android:textSize="25sp"
-        android:layout_centerHorizontal="true"
         android:layout_above="@+id/Spinner_tipo_destino"
-        />
+        android:layout_centerInParent="true"
+        android:layout_marginBottom="70dp"
+        android:text="App Taller 1"
+        android:textColor="#003314"
+        android:textSize="25sp"
+        android:typeface="serif" />
+
     <Spinner
         android:id="@+id/Spinner_tipo_destino"
-        android:layout_width="match_parent"
+        android:layout_width="700px"
         android:layout_height="wrap_content"
-        android:entries="@array/categoriaViajes"
         android:layout_above="@+id/BotonExplorarDestinos"
-        android:background="@color/white"/>
-
-    <Button
-        android:id="@+id/BotonExplorarDestinos"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
         android:layout_centerInParent="true"
-        android:text="Explorar Destinos" />
+        android:layout_marginBottom="52dp"
+        android:background="@drawable/rounded_spinner"
+        android:entries="@array/categoriaViajes"
+        android:textAlignment="center"
+        android:typeface="normal" />
 
     <Button
         android:id="@+id/BotonFavoritos"
-        android:layout_width="match_parent"
+        android:layout_width="700px"
         android:layout_height="wrap_content"
-        android:text="Favoritos"
+        android:layout_centerHorizontal="true"
         android:layout_below="@+id/BotonExplorarDestinos"
-        />
+        android:layout_marginTop="32dp"
+        android:text="Favoritos"
+        android:typeface="normal"
+        android:background="@drawable/rounded_button" />
+
+    <Button
+        android:id="@+id/btnIrAFavoritos"
+        android:layout_width="700px"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/BotonFavoritos"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="94dp"
+        android:background="@drawable/rounded_button"
+        android:text="Ir a Favoritos"
+        android:typeface="normal" />
+
+    <Button
+        android:id="@+id/BotonExplorarDestinos"
+        android:layout_width="700px"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:background="@drawable/rounded_button"
+        android:text="Explorar Destinos"
+        android:typeface="normal" />
+
     <Button
         android:id="@+id/BotonRecomendaciones"
-        android:layout_width="match_parent"
+        android:layout_width="700px"
         android:layout_height="wrap_content"
-        android:text="Recomendaciones"
+        android:layout_centerHorizontal="true"
         android:layout_below="@+id/BotonFavoritos"
+        android:layout_marginTop="24dp"
+        android:text="Recomendaciones"
+        android:typeface="normal"
+        android:background="@drawable/rounded_button"
         />
+
 
 </RelativeLayout>

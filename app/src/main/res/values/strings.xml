@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">1erTaller</string>
+    <string name="favoritos_button">Añadir a Favoritos</string>
 </resources>

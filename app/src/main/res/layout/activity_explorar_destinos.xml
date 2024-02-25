@@ -6,7 +6,8 @@
     android:layout_height="match_parent"
     tools:context=".ExplorarDestinos"
     android:padding="20dp"
-    android:background="@color/fondoAzul">
+    android:background="@color/fondo"
+    >
 
     <TextView
         android:id="@+id/textico"
@@ -15,5 +16,6 @@
         android:textSize="25sp"
         android:layout_centerInParent="true"
         android:text="Papitas"
+
         />
 </RelativeLayout>
