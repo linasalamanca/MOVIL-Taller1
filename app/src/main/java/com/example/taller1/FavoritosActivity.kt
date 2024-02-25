@@ -1,16 +1,22 @@
 package com.example.taller1
 
+import android.content.Intent
 import android.os.Bundle
 import android.widget.ArrayAdapter
+import android.widget.Button
 import android.widget.ListView
 import androidx.appcompat.app.AppCompatActivity
 import org.json.JSONArray
 import org.json.JSONObject
+import java.io.IOException
+import java.io.InputStream
 
 class FavoritosActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        val BTNVolver = findViewById<Button>(R.id.btnVolver)
         setContentView(R.layout.activity_favoritos)
 
         val listaFavoritos: ListView = findViewById(R.id.listaFavoritos)
@@ -24,11 +30,15 @@ class FavoritosActivity : AppCompatActivity() {
         )
 
         listaFavoritos.adapter = adaptador
+
+        /*val intMenu = Intent(this, MainActivity::class.java)
+        BTNVolver.setOnClickListener{startActivity(intMenu)}*/
+
     }
 
     private fun obtenerDestinosSeleccionados(): List<Destino> {
         try {
-            val json = leerArchivoJson()
+            val json = loadJSONFromAsset()
             val jsonArray = JSONArray(json)
 
             val destinos = mutableListOf<Destino>()
@@ -51,8 +61,21 @@ class FavoritosActivity : AppCompatActivity() {
         }
     }
 
-    private fun leerArchivoJson(): String {
-        val inputStream = assets.open("destino.json")
-        return inputStream.bufferedReader().use { it.readText() }
+
+    fun loadJSONFromAsset(): JSONArray {
+        var json: String? = null
+        try {
+            val istream: InputStream = assets.open("destinos.json")
+            val size: Int = istream.available()
+            val buffer = ByteArray(size)
+            istream.read(buffer)
+            istream.close()
+            json = String(buffer, Charsets.UTF_8)
+        } catch (ex: IOException) {
+            ex.printStackTrace()
+
+        }
+        val jsonObject = JSONObject(json)
+        return jsonObject.getJSONArray("destinos")
     }
 }

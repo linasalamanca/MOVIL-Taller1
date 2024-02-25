@@ -30,7 +30,6 @@ class MainActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener {
         val BTNRecomendaciones = findViewById<Button>(R.id.BotonRecomendaciones)
         val spinnerCategorias = findViewById<Spinner>(R.id.Spinner_tipo_destino)
         val btnIrAFavoritos = findViewById<Button>(R.id.btnIrAFavoritos)
-        var listaFavoritos = loadJSONFromAsset()
 
         seleccionCategoria = "no funciono"
         spinnerCategorias.onItemSelectedListener = this
@@ -83,20 +82,5 @@ class MainActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener {
         Toast.makeText(baseContext, "Por favor, selecciona una categoría", Toast.LENGTH_SHORT).show()
     }
 
-    fun loadJSONFromAsset(): JSONArray {
-        var json: String? = null
-        try {
-            val istream: InputStream = assets.open("destinos.json")
-            val size: Int = istream.available()
-            val buffer = ByteArray(size)
-            istream.read(buffer)
-            istream.close()
-            json = String(buffer, Charsets.UTF_8)
-        } catch (ex: IOException) {
-            ex.printStackTrace()
 
-        }
-        val jsonObject = JSONObject(json)
-        return jsonObject.getJSONArray("destinos")
-    }
 }
