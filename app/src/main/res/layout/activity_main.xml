@@ -24,13 +24,13 @@
         android:entries="@array/categoriaViajes"
         android:layout_above="@+id/BotonExplorarDestinos"
         android:background="@color/white"/>
+
     <Button
         android:id="@+id/BotonExplorarDestinos"
-        android:text="Explorar Destinos"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
-        />
+        android:text="Explorar Destinos" />
 
     <Button
         android:id="@+id/BotonFavoritos"

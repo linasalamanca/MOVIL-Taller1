@@ -9,6 +9,10 @@ import android.widget.AdapterView
 import android.widget.Button
 import android.widget.Spinner
 import android.widget.Toast
+import org.json.JSONArray
+import org.json.JSONObject
+import java.io.IOException
+import java.io.InputStream
 
 class MainActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener{
 
@@ -32,14 +36,13 @@ class MainActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener{
         intExplorarDestinos.putExtra("infoCategoria",bundleExplorarDestinos)
 
         val intRecomendaciones = Intent(this, Recomendaciones::class.java)
+        val intFavoritos = Intent(this, Favoritos::class.java)
 
-        BTNDestinos.setOnClickListener{
-            startActivity(intExplorarDestinos)
-        }
+        BTNDestinos.setOnClickListener{ startActivity(intExplorarDestinos) }
 
-        BTNRecomendaciones.setOnClickListener{
-            startActivity(intRecomendaciones)
-        }
+        BTNRecomendaciones.setOnClickListener{ startActivity(intRecomendaciones) }
+
+        BTNFavoritos.setOnClickListener{ startActivity(intFavoritos)}
     }
     override fun onItemSelected(parent: AdapterView<*>, view: View?, pos: Int, id: Long) {
         seleccionCategoria = parent.selectedItem.toString()
@@ -47,5 +50,21 @@ class MainActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener{
 
     override fun onNothingSelected(parent: AdapterView<*>) {
         Toast.makeText(baseContext, "Por favor, selecciona una categoría", Toast.LENGTH_SHORT).show()
+    }
+
+    fun loadJSONFromAsset(): String? {
+        var json: String? = null
+        try{
+            val istream: InputStream = assets. open( "destinos.json")
+            val size: Int = istream.available()
+            val buffer = ByteArray(size)
+            istream. read (buffer)
+            istream.close()
+            json = String(buffer, Charsets. UTF_8)
+        }catch (ex: IOException) {
+            ex.printStackTrace()
+            return null
+        }
+        return json
     }
 }
