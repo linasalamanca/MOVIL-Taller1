@@ -25,6 +25,7 @@ class MainActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener{
         val BTNFavoritos = findViewById<Button>(R.id.BotonFavoritos)
         val BTNRecomendaciones = findViewById<Button>(R.id.BotonRecomendaciones)
         val spinnerCategorias = findViewById<Spinner>(R.id.Spinner_tipo_destino)
+        val destinos = loadJSONFromAsset()
 
         seleccionCategoria = "no funciono"
         spinnerCategorias.onItemSelectedListener = this

@@ -12,6 +12,6 @@ class Favoritos : AppCompatActivity() {
         val listaFavoritos = findViewById<ListView>(R.id.listaFav)
         val fav = mutableListOf<String>()
 
-        for(des)
+
     }
 }
