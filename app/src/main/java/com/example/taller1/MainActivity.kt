@@ -11,6 +11,8 @@ import android.widget.Button
 import android.widget.Spinner
 import android.widget.TextView
 import android.widget.Toast
+import org.json.JSONArray
+import org.json.JSONObject
 import java.io.IOException
 import java.io.InputStream
 
@@ -28,6 +30,7 @@ class MainActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener {
         val BTNRecomendaciones = findViewById<Button>(R.id.BotonRecomendaciones)
         val spinnerCategorias = findViewById<Spinner>(R.id.Spinner_tipo_destino)
         val btnIrAFavoritos = findViewById<Button>(R.id.btnIrAFavoritos)
+        var listaFavoritos = loadJSONFromAsset()
 
         seleccionCategoria = "no funciono"
         spinnerCategorias.onItemSelectedListener = this
@@ -55,7 +58,7 @@ class MainActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener {
         val intRecomendaciones = Intent(this, Recomendaciones::class.java)
         startActivity(intRecomendaciones)
     }
-    private fun favoritos()
+        private fun favoritos()
     {
         if (!favoritoAgregado && seleccionCategoria != "no funciono") {
             Toast.makeText(this, "Añadido a favoritos", Toast.LENGTH_SHORT).show()
@@ -80,7 +83,7 @@ class MainActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener {
         Toast.makeText(baseContext, "Por favor, selecciona una categoría", Toast.LENGTH_SHORT).show()
     }
 
-    fun loadJSONFromAsset(): String? {
+    fun loadJSONFromAsset(): JSONArray {
         var json: String? = null
         try {
             val istream: InputStream = assets.open("destinos.json")
@@ -91,8 +94,9 @@ class MainActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener {
             json = String(buffer, Charsets.UTF_8)
         } catch (ex: IOException) {
             ex.printStackTrace()
-            return null
+
         }
-        return json
+        val jsonObject = JSONObject(json)
+        return jsonObject.getJSONArray("destinos")
     }
 }
