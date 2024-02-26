@@ -20,6 +20,9 @@ class MainActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener {
 
     lateinit var seleccionCategoria: String
     private var favoritoAgregado = false
+    companion object{
+        var favoritos: MutableList<Destino> = mutableListOf()
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -54,19 +57,25 @@ class MainActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener {
 
     private fun recomendaciones()
     {
-        val intRecomendaciones = Intent(this, Recomendaciones::class.java)
+        val destinos = loadJSONFromAsset()
+        val intRecomendaciones = Intent(this, Recomendaciones::class.java).apply {
+            putExtra("destinos", destinos.toString())
+        }
         startActivity(intRecomendaciones)
     }
         private fun favoritos()
-    {
-        if (!favoritoAgregado && seleccionCategoria != "no funciono") {
-            Toast.makeText(this, "Añadido a favoritos", Toast.LENGTH_SHORT).show()
-            favoritoAgregado = true
-        } else if (seleccionCategoria == "no funciono") {
-            Toast.makeText(this, "Por favor, selecciona una categoría primero", Toast.LENGTH_SHORT).show()
-        } else {
-            Toast.makeText(this, "Este destino ya está en tus favoritos", Toast.LENGTH_SHORT).show()
-        }
+        {
+            if (!favoritoAgregado && seleccionCategoria != "no funciono") {
+                val destinoSeleccionado = Destino(seleccionCategoria,"","Favoritos", "", "")
+                favoritos.add(destinoSeleccionado)
+                Toast.makeText(this, "Añadido a favoritos", Toast.LENGTH_SHORT).show()
+                favoritoAgregado = true
+            } else if (seleccionCategoria == "no funciono") {
+                Toast.makeText(this, "Por favor, selecciona una categoría primero", Toast.LENGTH_SHORT).show()
+            } else {
+                Toast.makeText(this, "Este destino ya está en tus favoritos", Toast.LENGTH_SHORT).show()
+            }
+
     }
 
     private fun irAFavoritos()
@@ -83,4 +92,20 @@ class MainActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener {
     }
 
 
+    fun loadJSONFromAsset(): JSONArray {
+        var json: String? = null
+        try {
+            val istream: InputStream = assets.open("destinos.json")
+            val size: Int = istream.available()
+            val buffer = ByteArray(size)
+            istream.read(buffer)
+            istream.close()
+            json = String(buffer, Charsets.UTF_8)
+        } catch (ex: IOException) {
+            ex.printStackTrace()
+
+        }
+        val jsonObject = JSONObject(json)
+        return jsonObject.getJSONArray("destinos")
+    }
 }

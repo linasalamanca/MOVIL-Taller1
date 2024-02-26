@@ -13,10 +13,11 @@ import java.io.InputStream
 
 class FavoritosActivity : AppCompatActivity() {
 
+    object FavoritosSingleton{
+        var destinos : MutableList<Destino> = mutableListOf()
+    }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
-        val BTNVolver = findViewById<Button>(R.id.btnVolver)
         setContentView(R.layout.activity_favoritos)
 
         val listaFavoritos: ListView = findViewById(R.id.listaFavoritos)
@@ -29,31 +30,40 @@ class FavoritosActivity : AppCompatActivity() {
             destinosSeleccionados.map { it.nombre }
         )
 
+        FavoritosSingleton.destinos = destinosSeleccionados.toMutableList()
+
         listaFavoritos.adapter = adaptador
 
-        /*val intMenu = Intent(this, MainActivity::class.java)
-        BTNVolver.setOnClickListener{startActivity(intMenu)}*/
-
+        val BTNVolver = findViewById<Button>(R.id.btnVolver)
+        BTNVolver.setOnClickListener{
+            val intentMenu = Intent(this, MainActivity::class.java)
+            startActivity(intentMenu)
+        }
     }
+
+
 
     private fun obtenerDestinosSeleccionados(): List<Destino> {
         try {
-            val json = loadJSONFromAsset()
+            val json = leerArchivoJson()
             val jsonArray = JSONArray(json)
 
             val destinos = mutableListOf<Destino>()
             for (i in 0 until jsonArray.length()) {
                 val jsonObject = jsonArray.getJSONObject(i)
                 val nombre = jsonObject.getString("nombre")
-                val descripcion = jsonObject.getString("descripcion")
+                val pais = jsonObject.getString("pais")
                 val categoria = jsonObject.getString("categoria")
+                val plan = jsonObject.getString("plan")
+                val precio = jsonObject.getString("precio")
 
-                // Modifica aquí para filtrar solo los destinos con la categoría "Favoritos"
                 if (categoria == "Favoritos") {
-                    destinos.add(Destino(nombre, descripcion))
+                    val nombre = jsonObject.getString("nombre")
+                    val destinoEncontrado = MainActivity.favoritos.find { it.nombre == nombre }
+                    if(destinoEncontrado != null)
+                        destinos.add(destinoEncontrado)
                 }
             }
-
             return destinos
         } catch (e: Exception) {
             e.printStackTrace()
@@ -61,21 +71,9 @@ class FavoritosActivity : AppCompatActivity() {
         }
     }
 
-
-    fun loadJSONFromAsset(): JSONArray {
-        var json: String? = null
-        try {
-            val istream: InputStream = assets.open("destinos.json")
-            val size: Int = istream.available()
-            val buffer = ByteArray(size)
-            istream.read(buffer)
-            istream.close()
-            json = String(buffer, Charsets.UTF_8)
-        } catch (ex: IOException) {
-            ex.printStackTrace()
-
-        }
-        val jsonObject = JSONObject(json)
-        return jsonObject.getJSONArray("destinos")
+    private fun leerArchivoJson(): String {
+        val inputStream = assets.open("destino.json")
+        return inputStream.bufferedReader().use { it.readText() }
     }
+
 }
