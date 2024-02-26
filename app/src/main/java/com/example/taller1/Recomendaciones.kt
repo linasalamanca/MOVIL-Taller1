@@ -25,38 +25,6 @@ class Recomendaciones : AppCompatActivity() {
         mostrarRecomendacion(nombreTV, paisTV, categoriaTV, planTV, precioTV, catMasFrecuente, arregloDestinos)
     }
 
-    fun categoriaMasFrecuente(): String {
-        if (DestinoFavorito.Favoritos.favoritos.isEmpty()) {
-            return "NA"
-        }
-        val frecuenciaCategorias = mutableMapOf<String, Int>()
-        for (d in DestinoFavorito.Favoritos.favoritos) {
-            val categoria = d.categoria
-            val count = frecuenciaCategorias.getOrDefault(categoria, 0)
-
-            frecuenciaCategorias[categoria] = count + 1
-        }
-        val categoriaMasFrecuente = frecuenciaCategorias.maxByOrNull { it.value }!!.key
-        return categoriaMasFrecuente
-    }
-
-    fun destinoAleatorio(destinos: JSONArray, categoria: String): JSONObject? {
-
-        val destinosPorCategoria = mutableListOf<JSONObject>()
-        if (destinosPorCategoria.isEmpty())
-            return null
-
-        for (i in 0 until destinos.length()) {
-            val d = destinos.getJSONObject(i)
-            if (d.getString("categoria") == categoria)
-                destinosPorCategoria.add(d)
-
-        }
-        val destinoAleatorio = destinosPorCategoria[Random.nextInt(destinosPorCategoria.size)]
-
-        return destinoAleatorio
-    }
-
     private fun mostrarRecomendacion(nombreTV: TextView, paisTV: TextView, categoriaTV: TextView, planTV: TextView, precioTV: TextView, catMasFrecuente: String, arregloDestinos: JSONArray) {
         if (catMasFrecuente == "NA") {
             nombreTV.text = "NA"
@@ -75,6 +43,41 @@ class Recomendaciones : AppCompatActivity() {
             }
         }
     }
+
+    fun categoriaMasFrecuente(): String {
+        if (DestinoFavorito.Favoritos.favoritos.isEmpty()) {
+            return "NA"
+        }
+        val frecuenciaCategorias = mutableMapOf<String, Int>()
+        for (d in DestinoFavorito.Favoritos.favoritos) {
+            val categoria = d.categoria
+            val count = frecuenciaCategorias.getOrDefault(categoria, 0)
+
+            frecuenciaCategorias[categoria] = count + 1
+        }
+        val categoriaMasFrecuente = frecuenciaCategorias.maxByOrNull { it.value }!!.key
+        return categoriaMasFrecuente
+    }
+
+    fun destinoAleatorio(destinos: JSONArray, categoria: String): JSONObject? {
+
+        val destinosPorCategoria = mutableListOf<JSONObject>()
+
+        for (i in 0 until destinos.length()) {
+            val d = destinos.getJSONObject(i)
+            if (d.getString("categoria") == categoria)
+                destinosPorCategoria.add(d)
+
+        }
+        val destinoAleatorio = destinosPorCategoria[Random.nextInt(destinosPorCategoria.size)]
+
+        return destinoAleatorio
+
+        if (destinosPorCategoria.isEmpty())
+            return null
+    }
+
+
 }
 
 

@@ -41,7 +41,7 @@ class DestinoFavorito : AppCompatActivity() {
         plata.text = dest.precio
 
         botonFav.setOnClickListener {
-            if (!favoritoAgregado) {
+            if (!favoritoAgregado && Favoritos.favoritos.none { it.nombre == dest.nombre}) {
                 Favoritos.favoritos.add(dest)
                 Toast.makeText(this, "Añadido a favoritos", Toast.LENGTH_SHORT).show()
                 favoritoAgregado = true
