@@ -52,7 +52,7 @@ class ExplorarDestinos : AppCompatActivity() {
         listaDestinos.setOnItemClickListener{ parent, view, position, id ->
             val paisSelec = arregloPaises[position]
             val intentPais = Intent(this, DestinoFavorito::class.java)
-            intentPais.putExtra("destinoSeleccionado", paisSelec.toString())
+            intentPais.putExtra("destinoSeleccionado", paisSelec)
             startActivity(intentPais)
         }
 
