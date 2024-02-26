@@ -1,11 +1,14 @@
 package com.example.taller1
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.ListView
 import android.widget.TextView
+import android.widget.Toast
 import org.json.JSONObject
 import java.io.IOException
 import java.io.InputStream
@@ -27,18 +30,17 @@ class ExplorarDestinos : AppCompatActivity() {
 
         val datosJson = JSONObject(loadJSONFromAsset())
         val paisesJson = datosJson.getJSONArray("destinos")
-        val datazo = paisesJson.length()
 
         if(categoria == "Todos"){
             for(i in 0 until paisesJson.length()){
                 val pais = paisesJson.getJSONObject(i)
-                arregloPaises.add(pais.getString("pais"))
+                arregloPaises.add(pais.getString("nombre"))
             }
         }else{
             for(i in 0 until paisesJson.length()){
                 val pais = paisesJson.getJSONObject(i)
                 if(pais.getString("categoria") == categoria){
-                    arregloPaises.add(pais.getString("pais"))
+                    arregloPaises.add(pais.getString("nombre"))
                 }
             }
         }
@@ -46,9 +48,12 @@ class ExplorarDestinos : AppCompatActivity() {
         val adaptadorLista = ArrayAdapter(this, android.R.layout.simple_list_item_1, arregloPaises)
         listaDestinos.adapter = adaptadorLista
 
-        //listaDestinos.setOnClickListener(object : AdapterView.OnItemClickListener){
-
-        //})
+        listaDestinos.setOnItemClickListener{ parent, view, position, id ->
+            val paisSelec = arregloPaises[position]
+            val intentPais = Intent(this, DestinoFavorito::class.java)
+            intentPais.putExtra("destinoSeleccionado", paisSelec.toString())
+            startActivity(intentPais)
+        }
 
     }
 
