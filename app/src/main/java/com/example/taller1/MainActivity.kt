@@ -80,7 +80,7 @@ class MainActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener {
 
     private fun irAFavoritos()
     {
-        val intentFavoritos = Intent(this, FavoritosActivity::class.java)
+        val intentFavoritos = Intent(this, Favoritos::class.java)
         startActivity(intentFavoritos)
     }
     override fun onItemSelected(parent: AdapterView<*>, view: View?, pos: Int, id: Long) {
