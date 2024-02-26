@@ -32,3 +32,4 @@ class Favoritos : AppCompatActivity() {
         listaFav.adapter = adaptadorLista
     }
 }
+

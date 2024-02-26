@@ -2,8 +2,11 @@ package com.example.taller1
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.widget.TextView
 import org.json.JSONArray
+import org.json.JSONObject
+import kotlin.math.log
 import kotlin.random.Random
 
 class Recomendaciones : AppCompatActivity() {
@@ -16,34 +19,61 @@ class Recomendaciones : AppCompatActivity() {
         val categoriaTV = findViewById<TextView>(R.id.categoria)
         val planTV = findViewById<TextView>(R.id.plan)
         val precioTV = findViewById<TextView>(R.id.precio)
-       // val destinos = JSONArray(intent.getStringExtra("destinos"))
-        val destinoMasFrecuente = masFrecuente()
+        val arregloDestinos = JSONArray(intent.getStringExtra("destinos"))
+        val catMasFrecuente = categoriaMasFrecuente()
 
-        nombreTV.text = destinoMasFrecuente.nombre
-        paisTV.text = destinoMasFrecuente.descripcion
-        categoriaTV.text = destinoMasFrecuente.categoria
-        planTV.text = destinoMasFrecuente.plan
-        precioTV.text = destinoMasFrecuente.precio
+        mostrarRecomendacion(nombreTV, paisTV, categoriaTV, planTV, precioTV, catMasFrecuente, arregloDestinos)
     }
 
-    fun masFrecuente() : Destino
-    {
-        val destinos = FavoritosActivity.FavoritosSingleton.destinos
-        if(destinos.isEmpty())
-            return Destino("NA","NA","NA", "NA", "NA")
-        var categoriaMasFrecuente:String = ""
-        val frecuenciaCategorias = mutableMapOf<String, Int>()
-        for (d in FavoritosActivity.FavoritosSingleton.destinos)
-        {
-            val categoria = d.categoria
-            val contadorFrecuencia = frecuenciaCategorias.getOrDefault(categoria,0)
-            frecuenciaCategorias[categoria] = contadorFrecuencia + 1;
+    fun categoriaMasFrecuente(): String {
+        if (DestinoFavorito.Favoritos.favoritos.isEmpty()) {
+            return "NA"
         }
-        categoriaMasFrecuente = frecuenciaCategorias.maxBy { it.value }.key
+        val frecuenciaCategorias = mutableMapOf<String, Int>()
+        for (d in DestinoFavorito.Favoritos.favoritos) {
+            val categoria = d.categoria
+            val count = frecuenciaCategorias.getOrDefault(categoria, 0)
 
-        val destinosMasFrecuentes = destinos.filter { it.categoria == categoriaMasFrecuente }
-        val destinoAleatorio = Random.nextInt(destinosMasFrecuentes.size)
-        return destinosMasFrecuentes[destinoAleatorio]
+            frecuenciaCategorias[categoria] = count + 1
+        }
+        val categoriaMasFrecuente = frecuenciaCategorias.maxByOrNull { it.value }!!.key
+        return categoriaMasFrecuente
+    }
+
+    fun destinoAleatorio(destinos: JSONArray, categoria: String): JSONObject? {
+
+        val destinosPorCategoria = mutableListOf<JSONObject>()
+        if (destinosPorCategoria.isEmpty())
+            return null
+
+        for (i in 0 until destinos.length()) {
+            val d = destinos.getJSONObject(i)
+            if (d.getString("categoria") == categoria)
+                destinosPorCategoria.add(d)
+
+        }
+        val destinoAleatorio = destinosPorCategoria[Random.nextInt(destinosPorCategoria.size)]
+
+        return destinoAleatorio
+    }
+
+    private fun mostrarRecomendacion(nombreTV: TextView, paisTV: TextView, categoriaTV: TextView, planTV: TextView, precioTV: TextView, catMasFrecuente: String, arregloDestinos: JSONArray) {
+        if (catMasFrecuente == "NA") {
+            nombreTV.text = "NA"
+            paisTV.text = "NA"
+            categoriaTV.text = "NA"
+            planTV.text = "NA"
+            precioTV.text = "NA"
+        } else {
+            val destinoAleatorio = destinoAleatorio(arregloDestinos, catMasFrecuente)
+            if (destinoAleatorio != null) {
+                nombreTV.text = destinoAleatorio.getString("nombre")
+                paisTV.text = destinoAleatorio.getString("pais")
+                categoriaTV.text = destinoAleatorio.getString("categoria")
+                planTV.text = destinoAleatorio.getString("plan")
+                precioTV.text = "USD " + destinoAleatorio.getString("precio")
+            }
+        }
     }
 }
 
