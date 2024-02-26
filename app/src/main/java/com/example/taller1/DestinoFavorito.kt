@@ -4,11 +4,15 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
 import android.widget.TextView
+import org.json.JSONObject
 
 class DestinoFavorito : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_destino_favorito)
+
+        val informacion = intent.getStringExtra("destinoSeleccionado")
+        val infoJson = JSONObject(informacion)
 
         val nombre = findViewById<TextView>(R.id.nombreFav)
         val pais = findViewById<TextView>(R.id.paisFav)
@@ -16,5 +20,11 @@ class DestinoFavorito : AppCompatActivity() {
         val plan = findViewById<TextView>(R.id.planFav)
         val plata = findViewById<TextView>(R.id.precioFav)
         val botonFav = findViewById<Button>(R.id.añadirFavoritos)
+
+        nombre.text = infoJson.getString("nombre")
+        pais.text = infoJson.getString("pais")
+        categoria.text = infoJson.getString("categoria")
+        plan.text = infoJson.getString("plan")
+        plata.text = infoJson.getString("precio")
     }
 }
