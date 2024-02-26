@@ -22,6 +22,8 @@ class Favoritos : AppCompatActivity() {
 
         val favs = MainActivity.favoritos;
 
+        for(f in favs){
 
+        }
     }
 }
