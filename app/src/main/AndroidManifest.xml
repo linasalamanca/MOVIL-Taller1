@@ -12,8 +12,10 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Taller1"
         tools:targetApi="31">
+        <activity
+            android:name=".DestinoFavorito"
+            android:exported="false" />
         <activity android:name=".FavoritosActivity" />
-
         <activity
             android:name=".Favoritos"
             android:exported="false" />
