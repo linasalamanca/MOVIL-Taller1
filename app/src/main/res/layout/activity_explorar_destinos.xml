@@ -8,14 +8,29 @@
     android:padding="20dp"
     android:background="@color/fondo"
     >
+    <TextView
+        android:id="@+id/Enunciado"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_above="@id/Enunciado"
+        android:text="Destinos: "
+        android:textSize="35sp"/>
 
     <TextView
-        android:id="@+id/textico"
+        android:id="@+id/categoria"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="TextView"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@+id/Enunciado"
+        android:textSize="35sp"/>
+
+    <ListView
+        android:id="@+id/listaDestinos"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textSize="25sp"
-        android:layout_centerInParent="true"
-        android:text="Papitas"
+        android:layout_below="@+id/categoria">
+    </ListView>
 
-        />
 </RelativeLayout>
