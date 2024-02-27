@@ -19,7 +19,6 @@ import java.io.InputStream
 class MainActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener {
 
     lateinit var seleccionCategoria: String
-    private var favoritoAgregado = false
     companion object{
         var favoritos: MutableList<Destino> = mutableListOf()
     }
@@ -29,7 +28,6 @@ class MainActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener {
         setContentView(R.layout.activity_main)
 
         val BTNDestinos = findViewById<Button>(R.id.BotonExplorarDestinos)
-        val BTNFavoritos = findViewById<Button>(R.id.BotonFavoritos)
         val BTNRecomendaciones = findViewById<Button>(R.id.BotonRecomendaciones)
         val spinnerCategorias = findViewById<Spinner>(R.id.Spinner_tipo_destino)
         val btnIrAFavoritos = findViewById<Button>(R.id.btnIrAFavoritos)
@@ -40,8 +38,6 @@ class MainActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener {
         BTNDestinos.setOnClickListener { explorarDestinos() }
 
         BTNRecomendaciones.setOnClickListener { recomendaciones() }
-
-        BTNFavoritos.setOnClickListener {favoritos()}
 
         btnIrAFavoritos.setOnClickListener {irAFavoritos()}
     }
@@ -63,21 +59,6 @@ class MainActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener {
         }
         startActivity(intRecomendaciones)
     }
-        private fun favoritos()
-        {
-            if (!favoritoAgregado && seleccionCategoria != "no funciono") {
-                val destinoSeleccionado = Destino(seleccionCategoria,"","Favoritos", "", "")
-                favoritos.add(destinoSeleccionado)
-                Toast.makeText(this, "Añadido a favoritos", Toast.LENGTH_SHORT).show()
-                favoritoAgregado = true
-            } else if (seleccionCategoria == "no funciono") {
-                Toast.makeText(this, "Por favor, selecciona una categoría primero", Toast.LENGTH_SHORT).show()
-            } else {
-                Toast.makeText(this, "Este destino ya está en tus favoritos", Toast.LENGTH_SHORT).show()
-            }
-
-    }
-
     private fun irAFavoritos()
     {
         val intentFavoritos = Intent(this, Favoritos::class.java)

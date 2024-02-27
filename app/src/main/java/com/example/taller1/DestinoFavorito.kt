@@ -6,15 +6,18 @@ import android.util.Log
 import android.widget.Button
 import android.widget.TextView
 import android.widget.Toast
+import okhttp3.*
+import okhttp3.Request
 import org.json.JSONArray
 import org.json.JSONObject
 import java.io.IOException
 import java.io.InputStream
+import java.net.URL
 
 class DestinoFavorito : AppCompatActivity() {
 
     private var favoritoAgregado = false
-
+    private val client = OkHttpClient()
     object Favoritos {
         var favoritos: MutableList<Destino> = mutableListOf()
     }
@@ -30,30 +33,36 @@ class DestinoFavorito : AppCompatActivity() {
         val plan = findViewById<TextView>(R.id.planFav)
         val plata = findViewById<TextView>(R.id.precioFav)
         val botonFav = findViewById<Button>(R.id.añadirFavoritos)
-
+        val temperatura = findViewById<TextView>(R.id.tempFav)
         val nombreSeleccionado = intent.getStringExtra("destinoSeleccionado").toString()
 
-        val dest = obtenerInfo(nombreSeleccionado, destinos)
-        nombre.text = dest.nombre
-        pais.text = dest.precio
-        categoria.text = dest.categoria
-        plan.text = dest.plan
-        plata.text = dest.precio
+        mostrarInfo(nombre, pais, categoria, plan, plata, nombreSeleccionado, destinos, botonFav, temperatura)
 
-        botonFav.setOnClickListener {
-            if (!favoritoAgregado && Favoritos.favoritos.none { it.nombre == dest.nombre}) {
-                Favoritos.favoritos.add(dest)
-                Toast.makeText(this, "Añadido a favoritos", Toast.LENGTH_SHORT).show()
-                favoritoAgregado = true
-            }  else {
-                Toast.makeText(this, "Este destino ya está en tus favoritos", Toast.LENGTH_SHORT)
-                    .show()
-            }
-        }
     }
 
+    fun mostrarInfo(nombre:TextView, pais:TextView, categoria:TextView, plan:TextView, precio:TextView,nombreSeleccionado: String, destinos: JSONArray, botonFav:Button, temperatura:TextView)
+        {
+            val dest = obtenerInfo(nombreSeleccionado, destinos)
+            nombre.text = dest.nombre
+            pais.text = dest.precio
+            categoria.text = dest.categoria
+            plan.text = dest.plan
+            precio.text = dest.precio
 
-        fun obtenerInfo(nombreSeleccionado: String, destinos: JSONArray): Destino {
+            botonFav.setOnClickListener {
+                if (!favoritoAgregado && Favoritos.favoritos.none { it.nombre == dest.nombre}) {
+                    Favoritos.favoritos.add(dest)
+                    Toast.makeText(this, "Añadido a favoritos", Toast.LENGTH_SHORT).show()
+                    favoritoAgregado = true
+                }  else {
+                    Toast.makeText(this, "Este destino ya está en tus favoritos", Toast.LENGTH_SHORT)
+                        .show()
+                }
+            }
+        }
+
+
+    fun obtenerInfo(nombreSeleccionado: String, destinos: JSONArray): Destino {
             for (i in 0 until destinos.length()) {
                 val destinoSeleccionado = destinos.getJSONObject(i)
                 Log.i("P1", "Destino: ${destinoSeleccionado.getString("nombre")}")

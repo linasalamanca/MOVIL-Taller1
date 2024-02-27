@@ -34,25 +34,14 @@
         android:typeface="normal" />
 
     <Button
-        android:id="@+id/BotonFavoritos"
-        android:layout_width="700px"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_below="@+id/BotonExplorarDestinos"
-        android:layout_marginTop="32dp"
-        android:text="Favoritos"
-        android:typeface="normal"
-        android:background="@drawable/rounded_button" />
-
-    <Button
         android:id="@+id/btnIrAFavoritos"
         android:layout_width="700px"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/BotonFavoritos"
+        android:layout_below="@+id/BotonExplorarDestinos"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="94dp"
+        android:layout_marginTop="40dp"
         android:background="@drawable/rounded_button"
-        android:text="Ir a Favoritos"
+        android:text="Favoritos"
         android:typeface="normal" />
 
     <Button
@@ -69,8 +58,8 @@
         android:layout_width="700px"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
-        android:layout_below="@+id/BotonFavoritos"
-        android:layout_marginTop="24dp"
+        android:layout_below="@+id/btnIrAFavoritos"
+        android:layout_marginTop="40dp"
         android:text="Recomendaciones"
         android:typeface="normal"
         android:background="@drawable/rounded_button"

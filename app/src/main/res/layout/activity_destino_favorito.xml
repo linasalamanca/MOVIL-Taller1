@@ -50,6 +50,14 @@
         android:layout_below="@+id/planFav"
         android:layout_centerHorizontal="true"
         android:text="precio"/>
+    <TextView
+        android:id="@+id/tempFav"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="20sp"
+        android:layout_below="@+id/precioFav"
+        android:layout_centerHorizontal="true"
+        android:text="temperatura"/>
     <Button
         android:id="@+id/añadirFavoritos"
         android:layout_width="match_parent"
