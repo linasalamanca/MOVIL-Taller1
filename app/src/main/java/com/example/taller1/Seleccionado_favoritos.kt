@@ -1,0 +1,101 @@
+package com.example.taller1
+
+import android.os.Bundle
+import android.util.Log
+import android.widget.TextView
+import androidx.appcompat.app.AppCompatActivity
+import org.json.JSONArray
+import org.json.JSONObject
+import java.io.IOException
+import java.io.InputStream
+
+class SeleccionadoFavoritosActivity : AppCompatActivity() {
+    private var favoritoAgregado = false
+
+    object Favoritos {
+        var favoritos: MutableList<Destino> = mutableListOf()
+    }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_seleccionado_favoritos)
+
+        val destinos = loadJSONFromAsset()
+        val nombre = findViewById<TextView>(R.id.nombreFav)
+        val pais = findViewById<TextView>(R.id.paisFav)
+        val categoria = findViewById<TextView>(R.id.categoriaFav)
+        val plan = findViewById<TextView>(R.id.planFav)
+        val precio = findViewById<TextView>(R.id.precioFav)
+        val temperatura = findViewById<TextView>(R.id.tempFav)
+        val nombreSeleccionado = intent.getStringExtra("destinoSeleccionado").toString()
+
+        mostrarInfo(
+            nombre,
+            pais,
+            categoria,
+            plan,
+            precio,
+            nombreSeleccionado,
+            destinos,
+            temperatura
+        )
+    }
+
+    fun mostrarInfo(
+        nombre: TextView,
+        pais: TextView,
+        categoria: TextView,
+        plan: TextView,
+        precio: TextView,
+        nombreSeleccionado: String,
+        destinos: JSONArray,
+        temperatura: TextView
+    ) {
+        val dest = obtenerInfo(nombreSeleccionado, destinos)
+        nombre.text = dest.nombre
+        pais.text = dest.precio
+        categoria.text = dest.categoria
+        plan.text = dest.plan
+        precio.text = dest.precio
+        //temperatura.text = dest.temperatura
+
+    }
+
+    fun obtenerInfo(nombreSeleccionado: String, destinos: JSONArray): Destino {
+        for (i in 0 until destinos.length()) {
+            val destinoSeleccionado = destinos.getJSONObject(i)
+            Log.i("P1", "Destino: ${destinoSeleccionado.getString("nombre")}")
+            if (destinoSeleccionado.getString("nombre") == nombreSeleccionado) {
+
+                val nombre = destinoSeleccionado.getString("nombre")
+                val pais = destinoSeleccionado.getString("pais")
+                val categoria = destinoSeleccionado.getString("categoria")
+                val plan = destinoSeleccionado.getString("plan")
+                val precio = "USD " + destinoSeleccionado.getInt("precio").toString()
+
+
+                return Destino(nombre, pais, categoria, plan, precio)
+            }
+
+        }
+        return Destino("NA", "NA", "NA", "NA", "NA")
+    }
+
+    fun loadJSONFromAsset(): JSONArray {
+        var json: String? = null
+        try {
+            val istream: InputStream = assets.open("destinos.json")
+            val size: Int = istream.available()
+            val buffer = ByteArray(size)
+            istream.read(buffer)
+            istream.close()
+            json = String(buffer, Charsets.UTF_8)
+        } catch (ex: IOException) {
+            ex.printStackTrace()
+
+        }
+        val jsonObject = JSONObject(json)
+        return jsonObject.getJSONArray("destinos")
+    }
+}
+

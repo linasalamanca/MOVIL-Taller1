@@ -3,8 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:padding="16dp"
-    android:background="@color/fondo"
-    >
+    android:background="@color/fondo">
 
     <TextView
         android:id="@+id/tvFavoritosTitle"
@@ -15,18 +14,30 @@
         android:textColor="#000000"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="50dp"
-        />
+        android:typeface="serif" />
+
+    <TextView
+        android:id="@+id/NA"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="\n \n N/A \n \n (Nada encontrado en la lista)"
+        android:textAlignment="center"
+        android:textSize="40sp"
+        android:textColor="#000000"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="100dp"
+        android:typeface="serif" />
 
     <ListView
-        android:id="@+id/listaFavoritos"
+        android:id="@+id/listaFav"
         android:layout_width="match_parent"
-        android:layout_height="1400px"
+        android:layout_height="1200px"
         android:layout_below="@+id/tvFavoritosTitle"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="60dp"
         android:divider="#000000"
         android:dividerHeight="1dp"
         android:textColor="@color/black"
-        />
+        android:typeface="normal"/>
 
     <Button
         android:id="@+id/btnVolver"
@@ -34,10 +45,9 @@
         android:layout_height="wrap_content"
         android:text="Volver"
         android:textColor="#FFFFFF"
-        android:layout_below="@+id/listaFavoritos"
+        android:layout_below="@+id/listaFav"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="20dp"
         android:typeface="normal"
-        android:background="@drawable/rounded_button"
-        />
+        android:background="@drawable/rounded_button"/>
 </RelativeLayout>

@@ -1,23 +1,20 @@
 package com.example.taller1
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.widget.Button
 import android.widget.TextView
 import android.widget.Toast
-import okhttp3.*
-import okhttp3.Request
+import androidx.appcompat.app.AppCompatActivity
 import org.json.JSONArray
 import org.json.JSONObject
 import java.io.IOException
 import java.io.InputStream
-import java.net.URL
 
 class DestinoFavorito : AppCompatActivity() {
 
     private var favoritoAgregado = false
-    private val client = OkHttpClient()
+
     object Favoritos {
         var favoritos: MutableList<Destino> = mutableListOf()
     }
@@ -31,23 +28,32 @@ class DestinoFavorito : AppCompatActivity() {
         val pais = findViewById<TextView>(R.id.paisFav)
         val categoria = findViewById<TextView>(R.id.categoriaFav)
         val plan = findViewById<TextView>(R.id.planFav)
-        val plata = findViewById<TextView>(R.id.precioFav)
+        val precio = findViewById<TextView>(R.id.precioFav)
         val botonFav = findViewById<Button>(R.id.añadirFavoritos)
         val temperatura = findViewById<TextView>(R.id.tempFav)
         val nombreSeleccionado = intent.getStringExtra("destinoSeleccionado").toString()
 
-        mostrarInfo(nombre, pais, categoria, plan, plata, nombreSeleccionado, destinos, botonFav, temperatura)
-
+        mostrarInfo(nombre, pais, categoria, plan, precio, nombreSeleccionado, destinos, botonFav, temperatura)
     }
 
-    fun mostrarInfo(nombre:TextView, pais:TextView, categoria:TextView, plan:TextView, precio:TextView,nombreSeleccionado: String, destinos: JSONArray, botonFav:Button, temperatura:TextView)
+    fun mostrarInfo(
+        nombre:TextView,
+        pais:TextView,
+        categoria:TextView,
+        plan:TextView,
+        precio:TextView,
+        nombreSeleccionado: String,
+        destinos: JSONArray,
+        botonFav:Button,
+        temperatura:TextView)
         {
             val dest = obtenerInfo(nombreSeleccionado, destinos)
-            nombre.text = dest.nombre
-            pais.text = dest.precio
-            categoria.text = dest.categoria
-            plan.text = dest.plan
-            precio.text = dest.precio
+                nombre.text = dest.nombre
+                pais.text = dest.precio
+                categoria.text = dest.categoria
+                plan.text = dest.plan
+                precio.text = dest.precio
+                //temperatura.text = dest.temperatura
 
             botonFav.setOnClickListener {
                 if (!favoritoAgregado && Favoritos.favoritos.none { it.nombre == dest.nombre}) {
@@ -72,7 +78,8 @@ class DestinoFavorito : AppCompatActivity() {
                     val pais = destinoSeleccionado.getString("pais")
                     val categoria = destinoSeleccionado.getString("categoria")
                     val plan = destinoSeleccionado.getString("plan")
-                    val precio = destinoSeleccionado.getInt("precio").toString()
+                    val precio = "USD " + destinoSeleccionado.getInt("precio").toString()
+
 
                     return Destino(nombre, pais, categoria, plan, precio)
                 }
@@ -97,4 +104,5 @@ class DestinoFavorito : AppCompatActivity() {
             val jsonObject = JSONObject(json)
             return jsonObject.getJSONArray("destinos")
         }
-    }
+}
+

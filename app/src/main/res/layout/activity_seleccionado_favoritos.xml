@@ -6,72 +6,62 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity"
     android:padding="20dp"
-    android:background="@color/fondo">
-
+    android:background="@color/fondo"
+    >
     <TextView
-        android:id="@+id/nombre"
+        android:id="@+id/nombreFav"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
         android:layout_marginTop="300dp"
-        android:text="nombre"
         android:textSize="25sp"
-        android:textStyle="bold" />
+        android:textStyle="bold"
+        android:layout_centerHorizontal="true"
+        android:text="nombre"/>
 
     <TextView
-        android:id="@+id/pais"
+        android:id="@+id/paisFav"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/nombre"
+        android:layout_below="@+id/nombreFav"
         android:textSize="20sp"
         android:layout_centerHorizontal="true"
         android:text="Pais"/>
 
     <TextView
-        android:id="@+id/categoria"
+        android:id="@+id/categoriaFav"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/pais"
+        android:layout_below="@+id/paisFav"
         android:textSize="20sp"
         android:layout_centerHorizontal="true"
         android:text="Categoria"/>
 
     <TextView
-        android:id="@+id/plan"
+        android:id="@+id/planFav"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textSize="20sp"
-        android:layout_below="@+id/categoria"
+        android:layout_below="@+id/categoriaFav"
         android:layout_centerHorizontal="true"
         android:text="Plan"/>
 
     <TextView
-        android:id="@+id/precio"
+        android:id="@+id/precioFav"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textSize="20sp"
-        android:layout_below="@+id/plan"
+        android:layout_below="@+id/planFav"
         android:layout_centerHorizontal="true"
-        android:text="precio"/>
+        android:text="Precio"/>
 
     <TextView
-        android:id="@+id/NA"
+        android:id="@+id/tempFav"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="\n \n N/A \n \n (Nada encontrado en la lista)"
-        android:textAlignment="center"
-        android:textSize="40sp"
-        android:textColor="#000000"
+        android:textSize="20sp"
+        android:layout_below="@+id/precioFav"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="100dp"
-        android:typeface="serif" />
-
-    <Button
-        android:id="@+id/añadirFavoritos"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="590dp"
-        android:text="Añadir a Favoritos"
-        />
+        android:text="Temperatura"/>
 
 </RelativeLayout>

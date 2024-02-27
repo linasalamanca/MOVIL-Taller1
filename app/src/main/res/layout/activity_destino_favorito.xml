@@ -17,7 +17,8 @@
         android:textSize="25sp"
         android:textStyle="bold"
         android:layout_centerHorizontal="true"
-        android:text="nombree"/>
+        android:text="nombre"/>
+
     <TextView
         android:id="@+id/paisFav"
         android:layout_width="wrap_content"
@@ -25,7 +26,8 @@
         android:layout_below="@+id/nombreFav"
         android:textSize="20sp"
         android:layout_centerHorizontal="true"
-        android:text="pais"/>
+        android:text="Pais"/>
+
     <TextView
         android:id="@+id/categoriaFav"
         android:layout_width="wrap_content"
@@ -33,7 +35,8 @@
         android:layout_below="@+id/paisFav"
         android:textSize="20sp"
         android:layout_centerHorizontal="true"
-        android:text="pais"/>
+        android:text="Categoria"/>
+
     <TextView
         android:id="@+id/planFav"
         android:layout_width="wrap_content"
@@ -41,7 +44,8 @@
         android:textSize="20sp"
         android:layout_below="@+id/categoriaFav"
         android:layout_centerHorizontal="true"
-        android:text="plan"/>
+        android:text="Plan"/>
+
     <TextView
         android:id="@+id/precioFav"
         android:layout_width="wrap_content"
@@ -49,7 +53,8 @@
         android:textSize="20sp"
         android:layout_below="@+id/planFav"
         android:layout_centerHorizontal="true"
-        android:text="precio"/>
+        android:text="Precio"/>
+
     <TextView
         android:id="@+id/tempFav"
         android:layout_width="wrap_content"
@@ -57,7 +62,8 @@
         android:textSize="20sp"
         android:layout_below="@+id/precioFav"
         android:layout_centerHorizontal="true"
-        android:text="temperatura"/>
+        android:text="Temperatura"/>
+
     <Button
         android:id="@+id/añadirFavoritos"
         android:layout_width="match_parent"
